@@ -1,0 +1,23 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Windows binary
+        run: go build -o goproxy.exe main.go
+
+      - name: Publish Release Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: goproxy
+          path: goproxy.exe
